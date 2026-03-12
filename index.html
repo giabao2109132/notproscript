@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Notproscript</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    font-family:Arial;
+    background: linear-gradient(135deg,#000000,#001a33,#000814,#000000);
+    background-size:400% 400%;
+    animation:bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+canvas{
+    position:fixed;
+    top:0;
+    left:0;
+}
+
+.box{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:1;
+    padding:40px;
+    background:#111;
+    text-align:center;
+    border-radius:20px;
+    box-shadow:0 0 25px red;
+}
+
+h1{
+    color:red;
+}
+
+button{
+    display:block;
+    width:200px;
+    margin:10px auto;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#8b0000;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.1);
+    background:red;
+    box-shadow:0 0 15px red;
+}
+
+.vip{
+    background:gold;
+    color:black;
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="box">
+
+<h1>Script Free</h1>
+
+<button onclick="openPage('trauroblox.html')">Trẩu roblox</button>
+<button onclick="openPage('baconhub.html')">Bacon Hub</button>
+<button onclick="openPage('gravity.html')">Gravity Hub</button>
+
+<h1>Script VIP</h1>
+
+<button class="vip" onclick="openPage('bananahub.html')">💎 Banana Hub</button>
+
+</div>
+
+<script>
+
+function openPage(page){
+    window.location.href = page;
+}
+
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+
+function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resize();
+window.addEventListener("resize", resize);
+
+let particles = [];
+
+for(let i=0;i<120;i++){
+    particles.push({
+        x:Math.random()*canvas.width,
+        y:Math.random()*canvas.height,
+        size:Math.random()*3 + 1,
+        speed:Math.random()*1 + 0.2
+    });
+}
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle="red";
+
+    for(let i=0;i<particles.length;i++){
+
+        let p = particles[i];
+
+        ctx.beginPath();
+        ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+        ctx.fill();
+
+        p.y += p.speed;
+
+        if(p.y > canvas.height){
+            p.y = 0;
+            p.x = Math.random()*canvas.width;
+        }
+
+    }
+
+    requestAnimationFrame(animate);
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
