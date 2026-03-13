@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Notproscript</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+font-family:Arial;
+padding:40px;
+}
+
+.box{
+background:#111;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 20px red;
+}
+
+/* NÚT COPY VIP */
+
+.copyBtn{
+position:relative;
+padding:10px 20px;
+margin-top:20px;
+background: linear-gradient(120deg,#ff0000,#990000,#ff0000);
+background-size:200% 200%;
+border:none;
+color:white;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+overflow:hidden;
+transition:0.3s;
+animation:copyMove 3s linear infinite;
+}
+
+@keyframes copyMove{
+0%{background-position:0% 50%;}
+100%{background-position:200% 50%;}
+}
+
+.copyBtn::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,0.8),transparent);
+transition:0.5s;
+}
+
+.copyBtn:hover{
+transform:scale(1.1);
+box-shadow:0 0 15px red,0 0 25px darkred;
+}
+
+.copyBtn:hover::before{
+left:100%;
+}
+
+/* NÚT QUAY LẠI HIỆU ỨNG */
+
+.backBtn{
+position:relative;
+padding:10px 20px;
+margin-top:20px;
+background: linear-gradient(120deg,#8b0000,#ff0000,#8b0000);
+background-size:200% 200%;
+border:none;
+color:white;
+border-radius:10px;
+cursor:pointer;
+font-weight:bold;
+overflow:hidden;
+transition:0.3s;
+animation:backMove 3s linear infinite;
+}
+
+@keyframes backMove{
+0%{background-position:0% 50%;}
+100%{background-position:200% 50%;}
+}
+
+.backBtn::before{
+content:"";
+position:absolute;
+top:0;
+left:-100%;
+width:100%;
+height:100%;
+background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7),transparent);
+transition:0.5s;
+}
+
+.backBtn:hover{
+transform:scale(1.08);
+box-shadow:0 0 15px red,0 0 25px darkred;
+}
+
+.backBtn:hover::before{
+left:100%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+<h1>Gravity Script</h1>
+
+<div id="script" class="script">
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Dev-GravityHub/BloxFruit/refs/heads/main/Main.lua"))()
+
+</div>
+
+<button class="copyBtn" onclick="copyScript()">📋 Copy Script</button>
+<button class="backBtn" onclick="goBack()">⬅ Quay lại</button>
+
+</div>
+
+<script>
+
+function copyScript(){
+let text = document.getElementById("script").innerText;
+navigator.clipboard.writeText(text);
+alert("Đã copy script!");
+}
+
+function goBack(){
+window.location.href="index.html";
+}
+
+</script>
+
+</body>
+</html>
