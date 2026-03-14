@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Notproscript</title>
+
+<style>
+
+html{scroll-behavior:smooth;}
+
+body{
+margin:0;
+overflow-y:auto;
+font-family:Arial;
+min-height:200vh;
+background: linear-gradient(135deg,#000000,#001a33,#000814,#000000);
+background-size:400% 400%;
+animation:bgMove 10s infinite alternate;
+}
+
+@keyframes bgMove{
+0%{background-position:0% 50%;}
+100%{background-position:100% 50%;}
+}
+
+canvas{
+position:fixed;
+top:0;
+left:0;
+}
+
+#matrix{z-index:-2;opacity:0.25;}
+#bg{z-index:-1;}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:#000;}
+::-webkit-scrollbar-thumb{
+background:red;
+border-radius:10px;
+box-shadow:0 0 10px red;
+}
+
+/* BOX */
+
+.box{
+position:relative;
+margin:120px auto;
+padding:40px;
+background:#111;
+text-align:center;
+border-radius:20px;
+width:350px;
+animation:boxGlow 3s infinite alternate;
+}
+
+@keyframes boxGlow{
+0%{box-shadow:0 0 15px red;}
+100%{box-shadow:0 0 40px red,0 0 60px darkred;}
+}
+
+h1{
+color:red;
+text-shadow:0 0 10px red,0 0 20px red,0 0 40px darkred;
+}
+
+h2{
+font-size:16px;
+margin:15px 0;
+font-weight:bold;
+background: linear-gradient(90deg,#ff0000,#ff6600,#ff0000);
+background-size:200% auto;
+color:transparent;
+background-clip:text;
+-webkit-background-clip:text;
+animation:textMove 4s linear infinite;
+}
+
+@keyframes textMove{
+0%{background-position:0%;}
+100%{background-position:200%;}
+}
+
+button{
+display:block;
+width:200px;
+margin:10px auto;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#8b0000;
+color:white;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+background:red;
+box-shadow:0 0 15px red;
+}
+
+.hackbtn{
+background: linear-gradient(120deg,#00c3ff,#0066ff,#00c3ff);
+background-size:200% 200%;
+border:2px solid #00c3ff;
+animation:hackMove 3s linear infinite;
+}
+
+@keyframes hackMove{
+0%{background-position:0% 50%;}
+100%{background-position:200% 50%;}
+}
+
+.vip{
+background: linear-gradient(120deg,#ffd700,#ffb300,#ffd700);
+background-size:200% 200%;
+color:#000;
+font-weight:bold;
+border:2px solid gold;
+animation:vipMove 3s linear infinite;
+}
+
+@keyframes vipMove{
+0%{background-position:0% 50%;}
+100%{background-position:200% 50%;}
+}
+
+</style>
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+<canvas id="bg"></canvas>
+
+<div class="box">
+
+<h1>Script Free</h1>
+
+<button onclick="openPage('trauroblox.html')">Trẩu Roblox</button>
+<button onclick="openPage('baconhub.html')">Bacon Hub</button>
+<button onclick="openPage('gravity.html')">Gravity Hub</button>
+
+<h1>Link tải hack</h1>
+
+<button class="hackbtn" onclick="window.open('https://wearedevs.net/d/Ronix/')">
+⚡ Ronix
+</button>
+
+<button class="hackbtn" onclick="window.open('https://velocity-executor.com/')">
+🚀 Velocity
+</button>
+
+<h1>Script VIP</h1>
+
+<h2>Tất cả các script VIP cần có key. Bạn có thể mua tại:</h2>
+
+<button onclick="window.open('https://yukstore.com/')">YukStore</button>
+
+<h2>Còn dưới đây dành cho những bạn đã có key</h2>
+
+<button class="vip" onclick="openPage('verify.html?page=banana.html')">
+💎 Banana Hub
+</button>
+
+</div>
+
+<script>
+
+function openPage(page){
+window.location.href = page;
+}
+
+/* CANVAS */
+
+const canvas=document.getElementById("bg");
+const ctx=canvas.getContext("2d");
+
+const matrix=document.getElementById("matrix");
+const mtx=matrix.getContext("2d");
+
+function resize(){
+canvas.width=window.innerWidth;
+canvas.height=window.innerHeight;
+matrix.width=window.innerWidth;
+matrix.height=window.innerHeight;
+}
+
+resize();
+window.addEventListener("resize",resize);
+
+/* PARTICLE NETWORK AI */
+
+let particles=[];
+let hue=0;
+
+for(let i=0;i<130;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+size:Math.random()*3+1,
+speedX:(Math.random()-0.5)*0.7,
+speedY:(Math.random()-0.5)*0.7
+});
+}
+
+function animate(){
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+
+hue+=0.5;
+
+for(let i=0;i<particles.length;i++){
+
+let p=particles[i];
+
+ctx.fillStyle="hsl("+hue+",100%,60%)";
+ctx.shadowColor="hsl("+hue+",100%,60%)";
+ctx.shadowBlur=15;
+
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+ctx.fill();
+
+p.x+=p.speedX;
+p.y+=p.speedY;
+
+if(p.x<0 || p.x>canvas.width) p.speedX*=-1;
+if(p.y<0 || p.y>canvas.height) p.speedY*=-1;
+
+}
+
+/* NETWORK LINK */
+
+for(let a=0;a<particles.length;a++){
+for(let b=a+1;b<particles.length;b++){
+
+let dx=particles[a].x-particles[b].x;
+let dy=particles[a].y-particles[b].y;
+let dist=Math.sqrt(dx*dx+dy*dy);
+
+if(dist<110){
+
+let alpha=1-(dist/110);
+
+ctx.strokeStyle="hsla("+hue+",100%,60%,"+alpha+")";
+ctx.lineWidth=1.5;
+
+ctx.shadowColor="hsl("+hue+",100%,60%)";
+ctx.shadowBlur=10;
+
+ctx.beginPath();
+ctx.moveTo(particles[a].x,particles[a].y);
+ctx.lineTo(particles[b].x,particles[b].y);
+ctx.stroke();
+
+}
+
+}
+}
+
+requestAnimationFrame(animate);
+
+}
+
+animate();
+
+/* MATRIX EFFECT */
+
+const letters="01YESEVBTPN+-#*/$VNVODICH!&^%NOTPROSCRIPT";
+const fontSize=16;
+const columns=matrix.width/fontSize;
+const drops=[];
+
+for(let x=0;x<columns;x++){
+drops[x]=1;
+}
+
+function drawMatrix(){
+
+mtx.fillStyle="rgba(0,0,0,0.05)";
+mtx.fillRect(0,0,matrix.width,matrix.height);
+
+mtx.fillStyle="#00ff00";
+mtx.font=fontSize+"px monospace";
+
+for(let i=0;i<drops.length;i++){
+
+const text=letters[Math.floor(Math.random()*letters.length)];
+
+mtx.fillText(text,i*fontSize,drops[i]*fontSize);
+
+if(drops[i]*fontSize>matrix.height && Math.random()>0.975){
+drops[i]=0;
+}
+
+drops[i]++;
+
+}
+
+}
+
+setInterval(drawMatrix,35);
+
+</script>
+
+</body>
+</html>
